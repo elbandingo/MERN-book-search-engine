@@ -37,6 +37,7 @@ app.get('*', (req, res) => {
 //app.use(routes);
 
 db.once('open', () => {
+  console.log('connected to dB!');
   app.listen(PORT, () => {
   console.log(`🌍 Now listening on localhost:${PORT}`);
   console.log(`to user GraphQl, go to http://localhost:${PORT}${server.graphqlPath}`);
