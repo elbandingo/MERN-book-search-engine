@@ -12,10 +12,10 @@ const resolvers = {
         me: async (parent, args, context) => {
             if(context.user) {
                 const userData = await User.findOne({_id: context.user._id})
-                .select('__v -password')
+                .select('-__v -password')
                 return userData;
             }
-            throw new AuthenticationError('Not Logged In')
+            throw new AuthenticationError('Not Logged In maaaaaan')
         }
     },
 //next is mutations for add user, login, save a book, remove a book all will be user focused

@@ -9,7 +9,7 @@ import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap
 const SavedBooks = () => {
 
   const { loading, data } = useQuery(GET_ME);
-  const [deletedBook] = useMutation(REMOVE_BOOK);
+  const [deleteBook] = useMutation(REMOVE_BOOK);
   const userData = data?.me || {};
 
   //if there is no username currently logged, in, refer them to the signup or signin
@@ -30,7 +30,7 @@ const SavedBooks = () => {
     }
 
     try {
-      await deletedBook({
+      await deleteBook({
         variables: {bookId: bookId},
         update: cache => {
           const data = cache.readQuery({query: GET_ME});
