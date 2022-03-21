@@ -72,12 +72,13 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await saveBook(bookToSave, token);
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
+      await saveBook({
+        variables: {book: bookToSave},
+        update: cache => {
+          const {me} = cache.readQuery({query: GET_ME});
+          cache.writeQuery({query: GET_ME, data: {me: {...me, savedBooks: [...me.savedBooks, bookToSave]}}})
+        }
+      });
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
